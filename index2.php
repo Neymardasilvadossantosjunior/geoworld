@@ -27,29 +27,29 @@ $desPays = getCountriesByContinent($continent);
 <main role="main" class="flex-shrink-0">
 
   <div class="container">
-    <h1>Les pays en <?php echo $continent;?></h1>
+    <h1>Les pays en <?php echo $continent;?> : <?php echo getNbTotalpaysparcontinent()?></h1>
     <div>
      <table class="table">
          <tr>
-           <th>Drapeau</th>
            <th>Id</th>
            <th>Nom</th>
-           <th>Population</th>
            <th>Region</th>
+           <th>Population</th>
            <th>Capital</th>
            <th>President</th>
            <th>Government</th>
+           <th>Drapeau</th>
           </tr>
           <?php foreach ($desPays as $paysContinent): ?>         
             <tr>
-              <td> <img src= "./images/drapeau/<?php if (!empty ($paysContinent->Code2)){echo strtolower($paysContinent->Code2);} else{echo "pas de drapeau";}?>.png">
               <td> <?php echo $paysContinent->id ?></td>
-              <td> <?php echo $paysContinent->Name ?></td>
-              <td> <?php echo $paysContinent->Population ?></td>
+              <td><a href="country_info.php?country=<?php echo urlencode($paysContinent->Name); ?>"><?php echo $paysContinent->Name; ?></a></td>
               <td> <?php echo $paysContinent->Region ?></td>
+              <td> <?php echo $paysContinent->Population ?></td>
               <td> <?php if(!empty($paysContinent->Capital)){echo getCapitale($paysContinent->Capital);} else{echo "pas de capitale";}?></td>
               <td> <?php if (!empty($paysContinent->HeadOfState)){echo $paysContinent->HeadOfState;} else{echo "pas de president";}?></td>
               <td> <?php echo $paysContinent->GovernmentForm ?></td>
+              <td> <img src= "./images/drapeau/<?php if (!empty ($paysContinent->Code2)){echo strtolower($paysContinent->Code2);} else{echo "pas de drapeau";}?>.png">
             </tr>
             <?php endforeach; ?>
 

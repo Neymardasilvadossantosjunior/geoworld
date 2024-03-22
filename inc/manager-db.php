@@ -89,3 +89,40 @@ function getNbTotalpays()
     $query = 'SELECT COUNT(name) AS nb FROM Country;';
     return $pdo->query($query)->fetch()-> nb;
 }
+function getCountryLanguageInfo($countryId)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT c.Name, 1. Name AS Language, cl.Isofficial, cl.Percentage FROM Country C JOIN CountryLa ON C.id = cl.CountryId WHERE C.id = :countryId;");
+    $stmt->bindParam(':countryId', $countryId);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function getNbTotalpaysparcontinent() {
+    $continents = [
+      'Europe' => 50,
+      'Asia' => 48 ,
+      'Africa' => 54,
+      'North America' => 37,
+      'South America' => 14,
+      'Oceania' => 28,
+      'Antarctica' => 5
+    ];
+  
+    global $continent;
+    return $continents[$continent];
+  }
+  function getCountryInfo() {
+    require_once('geoplugin.class.php');
+    $geoplugin = new geoPlugin();
+    $geoplugin->locate();
+  
+    $countryCode = $geoplugin->countryCode;
+  
+    // Retrieve country information from database or API
+    $countryInfo = array(
+      "name" => "United States",
+      "image_url" => "https://example.com/us-flag.png"
+    );
+  
+    return $countryInfo;
+  }
